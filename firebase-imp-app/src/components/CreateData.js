@@ -1,22 +1,20 @@
 /* eslint-disable no-unused-vars */
-
-import {getDatabase, ref, set} from "firebase/database";
-import {app} from "../firebase";
-
-const db = getDatabase(app);
+import {useFirebase} from '../context/Firebase';
 
 function CreateData() {
-  const putData = ()=>{
-    set(ref(db,'users/ram'),{
+  const firebase = useFirebase();
+
+  const createData = ()=>{
+    firebase.putData('users/shyam',{
       id:1,
-      name:"Ram",
-      age:29
-    })
+      name:"ponada",
+      age:32
+    });
   }
   return (
     <div className="App">
       <h1>Firebase react app</h1>
-      <button onClick={putData}>Put data</button>
+      <button onClick={createData}>Put data</button>
     </div>
   );
 }

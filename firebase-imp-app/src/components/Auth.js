@@ -1,30 +1,28 @@
 import React ,{useState} from 'react'
-import { getAuth , createUserWithEmailAndPassword } from "firebase/auth";
-import {app} from '../firebase';
 import '../index.css';
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import {useFirebase} from '../context/Firebase';
 
-const auth = getAuth(app);
 
 const Auth = () => {
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
 
+  const firebase = useFirebase();
+
   const navigate = useNavigate();
 
   const signUpUser = ()=>{
-    createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    ).then((value)=>{
-      if(value){
-        toast.success('Signup success!');
-        navigate('/createData');
+    firebase.signupUserWithEmailAndPassword(email,password).then(
+      (value)=>{
+        if(value){
+          toast.success('Signup success!');
+          navigate('/createData');
+        }
+        // console.log(value,'value')
       }
-      // console.log(value,'value')
-    })
+    );
   }
   return (
     <>
