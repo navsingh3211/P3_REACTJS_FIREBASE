@@ -1,23 +1,21 @@
 /* eslint-disable no-unused-vars */
-
-import {getDatabase, ref, set} from "firebase/database";
-import {app} from "./firebase";
+import {lazy,Suspense} from 'react';
+import {BrowserRouter,Route,Routes, useNavigate} from 'react-router-dom';
 import './App.css';
-
-const db = getDatabase(app);
+import Dashboard from './components/CreateData';
+import Auth from './components/Auth';
+import Login from './components/Login';
 
 function App() {
-  const putData = ()=>{
-    set(ref(db,'users/navneet'),{
-      id:1,
-      name:"Navneet",
-      age:25
-    })
-  }
   return (
-    <div className="App">
-      <h1>Firebase react app</h1>
-      <button onClick={putData}>Put data</button>
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/createData' element={<Suspense fallback={"loading..."}><Dashboard/></Suspense>}/>
+          <Route path='/' element={<Suspense fallback={"loading..."}><Auth/></Suspense>}/>
+          <Route path='/login' element={<Suspense fallback={"loading..."}><Login/></Suspense>}/>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
