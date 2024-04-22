@@ -7,9 +7,17 @@ import './App.css';
 const db = getDatabase(app);
 
 function App() {
+  const putData = ()=>{
+    set(ref(db,'users/navneet'),{
+      id:1,
+      name:"Navneet",
+      age:25
+    })
+  }
   return (
     <div className="App">
-      Firebase react app
+      <h1>Firebase react app</h1>
+      <button onClick={putData}>Put data</button>
     </div>
   );
 }
